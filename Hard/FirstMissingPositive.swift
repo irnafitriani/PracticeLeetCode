@@ -2,19 +2,25 @@
 
 class Solution {
     func firstMissingPositive(_ nums: [Int]) -> Int {
-        var counter = 0
-        var smallest = 1
-        
-        while counter < nums.count {
-            if nums.contains(smallest) {
-                smallest += 1
-            } else {
-                return smallest
-            }
-            counter += 1
+        let max = nums.count
+        if max == 0 {
+            return 1
         }
         
-        return smallest
+        var arr = Array(repeating: 0, count: max)
+        for item in nums {
+            if item > 0 && item <= max {
+                arr[item-1] = item
+            }
+        }
+        
+        for i in 0...max-1 {
+            if arr[i] == 0 {
+                return i + 1
+            }
+        }
+        
+        return max + 1
         
     }
 }
